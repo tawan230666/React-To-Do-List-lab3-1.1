@@ -1,12 +1,38 @@
-# React + Vite
+# To-Do List — Context API + Container Pattern
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**A to-do app that separates logic from presentation: one container component owns the state and shares actions through React Context, while small presentational components just render and call them.**
 
-Currently, two official plugins are available:
+![React](https://img.shields.io/badge/React-20232A?logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+> **ENGSE203, Lab 3.1: React state, Context and component patterns.**
 
-## Expanding the ESLint configuration
+![To-do list](docs/screenshot.png)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Design
+
+```mermaid
+flowchart TD
+    C["TodoAppContainer<br/>state + actions + localStorage"] -- "TodoContext.Provider" --> F["TodoForm<br/>addTodo"]
+    C --> L["TodoList<br/>todos"]
+    L --> I["TodoItem<br/>toggle · edit · delete"]
+```
+
+- **Container/presentational split:** only `TodoAppContainer` knows how todos are stored and updated
+- **Context instead of prop drilling:** each component pulls just the actions it needs with `useContext`
+- **Immutable updates** with functional `setState`
+- **Inline editing:** click *Edit*, then save with Enter or by clicking away; empty edits are ignored
+- **Persistence:** todos are saved to `localStorage` and restored on reload
+
+## Run
+
+```bash
+git clone https://github.com/tawan230666/React-To-Do-List-lab3-1.1.git
+cd React-To-Do-List-lab3-1.1
+npm install
+npm run dev
+```
+
+---
+
+**Author:** Tawan Tiphkun (ธาวัน ทิพคุณ), [@tawan230666](https://github.com/tawan230666), Software Engineering, RMUTL Chiang Mai
